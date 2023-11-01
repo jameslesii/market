@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %} 
+    <p></p>
+    <div class="container">
+
+    <h4 class="card-header">{{user.username|title}}</h4>
+    <div style="display: flex;flex-direction: row;flex-wrap: wrap; ">
+        {% for product in products %}
+            <div class="card" style="border: 1px solid whitesmoke;margin: 10px 5px; box-shadow: 0px 0px 2px grey;">
+                <div class="card-header">{{product.ProductCategory}}</div>
+                {% if product.ProductImage %}
+                    <img class="card-img-top" src="{{product.ProductImage.url}}" alt="{{product.ProductImage.url}}" style="margin: 10px 0px 0px 10px; max-width: 280px;">
+                {% else %}
+                    <img class="card-img-top" src="{%static 'icon/james.jpg' %}" alt="" style="width: 320px;">
+                {% endif %}
+                
+                <div class="card-body">
+                    <h4 class="card-title" style="color: navy;">{{product.ProductName|title}}</h4>
+                    <p class="card-text" style="color: darkgreen;">Price: {{ product.ProductPrice }}&nbsp;Ksh</p>
+                    <p class="card-text">Total Number: {{ product.ProductQuantity }}</p>
+
+                    <a href="{% url 'show_product' product.id %}" class="btn btn-primary" style="margin-top: 5px;">
+                        View👁️
+                    </a>
+                    
+                    <a href="#" class="btn " style="margin-top: 5px; background-color: darkmagenta;color: white;">Message 📩</a>
+                    
+                    <a href="#" class="btn btn-success" style="margin-top: 5px;">Order 🚚</a>
+                    <p></p>
+                    <div class="card" style="max-width: 320px;">
+                        
+                        <a class="btn card-header" data-bs-toggle="collapse" href="#{{product.ProductName}}">
+                            Product Description
+                        </a>
+                        
+                        <div id="{{product.ProductName}}" class="collapse show" data-bs-parent="#accordion">
+                        <div class="card-body">
+                            {{ product.ProductDescription }}
+                        </div>
+                        </div>
+                    </div>
+                    {% if product.Owner == request.user %}
+                        <a href="{% url 'deleteproduct' product.id%}" class="btn badge rounded-pill bg-danger">Delete This Product</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% empty %}
+            <li>No products posted Yet!</li>
+        {% endfor %}
+    </div>
+    </div>
+{% endblock %}

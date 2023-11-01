@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %} 
+<div class="container" style="margin-top: 10px;padding: 20px 10px; background-color: whitesmoke; border-radius: 10px">
+    
+        {% if conversations.user1 == user %}
+            {% if conversations.user2 == user %}
+            <div class="card-header bg-success" style="margin-bottom: 15px;color: white;">
+                <a href="{%url 'user_messages' %}" class="btn badge rounded-pill bg-warning">&larr;Back</a>
+                <small>Conversation with <strong>Youself</strong></small>
+            </div>
+            {% else %}
+            <div class="card-header bg-success" style="margin-bottom: 15px;color: white;">
+                <a href="{%url 'user_messages' %}" class="btn badge rounded-pill bg-warning">&larr;Back</a>
+                <small>Conversation with <strong>{{conversations.user2}}</strong></small>
+            </div>
+            {% endif %}
+        {% else %}
+            <div class="card-header bg-success" style="margin-bottom: 15px;color: white;">
+                <a href="{%url 'user_messages' %}" class="btn badge rounded-pill bg-warning">&larr;Back</a>
+                <small>Conversation with <strong>{{conversations.user1}}</strong></small>
+            </div>
+        {% endif %}
+        
+    {% for message in messages %}
+        
+        
+            {% if message.sender == user %}
+                <div class="d-flex flex-row-reverse">
+                    <div class="alert alert-info" style="margin-left: 25px;">
+                        <small>{{message.sender}}</small>
+                        <p><strong>Message: </strong>{{message.content}} </p>
+                        <small><p>{{message.Timesent}} ago</p></small>
+                        <a href="{% url 'deletemsg' message.id %}" class="btn badge text-light rounded-pill bg-danger">Delete</a>
+                    </div>
+                </div>
+            {% elif message.receiver == user %}
+                <div class="d-flex flex-row">
+                    <div class="alert alert-success" style="margin-right: 25px;">
+                        <small>{{message.sender}}</small>
+                        <p><strong>Message: </strong>{{message.content}} </p>
+                        <small><p>{{message.Timesent|timesince}} ago</p></small>
+                    </div>
+                </div>
+            {% endif %}
+       
+    
+    {% endfor %}
+
+
+    {% if form %}
+    
+        <form action="" method="post">
+            <div class="input-group mb-3" style="max-width: 450px;margin: 20px auto;">
+            {% csrf_token %}
+            <textarea cols="30" rows="3" name="message" class="form-control" placeholder="Send message"></textarea>
+            <input class="btn btn-sm text-light bg-success" type="submit" value="Send">
+            </div>
+        </form>
+    
+    {% endif %}
+
+</div>
+
+{% endblock %}

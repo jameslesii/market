@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Verdant Network📡</title>
+        
+        {% load static %}
+        <link rel="icon" type="image/x-icon" href="{%static '/icon/james.jpg' %}">
+
+        <link rel="stylesheet" href="{%static '/bootstrap.min.css' %}">
+        <script src="{%static '/bootstrap.bundle.min.js'%}"></script>
+    
+        <link rel="stylesheet" href="../static/style.css">
+        <script src="../static/script.js"></script>
+
+        
+    </head>
+    <body>
+        {% include 'navbar.html' %}
+        {% include 'sidenav.html' %}
+
+        
+          {% block content %}
+          {% endblock %}
+       
+        
+        <div class="d-flex justify-content-end"> 
+            <a href="#top" style="background: linear-gradient(gold,cyan,magenta,navy,darkmagenta);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; font-size: 50px; margin-right: 20px;">
+              &spades;
+            </a>
+          </div>
+          
+        {% include 'footer.html' %}
+    </body>  
+</html>
+
+
+    
+   
+  
+ 
+    

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %} 
+    
+    <div class="container" style="margin-top: 10px;padding: 20px 10px;">
+        <div class="btn-group btn-group-sm" style="margin: 10px 10px;">
+            <a href="{%url 'view_conversations' %}" class="btn" style="background-color: navy;color: white;">Chats</a>
+            <a href="{%url 'user_messages' %}" class="btn btn-primary">Received</a>
+            <a href="{%url 'sent_messages' %}" class="btn btn-success">Sent</a>
+            <a href="{%url 'unread_messages' %}" class="btn btn-secondary">Unread</a>
+            <a href="{%url 'customers' %}" class="btn btn-warning">Community</a>
+        </div>
+        {% for conversation in conversations %}
+
+            <div class="input-group mb-3" style="max-width: 400px;">
+                <a href="{% url 'conversation' conversation.id%}" class=" btn  alert-success form-control" style="display: flex;flex-direction: row;justify-content: start;">
+                    
+                    {% if conversation.user1 == user %}
+                        {% if conversation.user2 == user %}
+                        <strong>You</strong> 
+                        {% else %}
+                        <strong>{{conversation.user2|title}}</strong> 
+                        {% endif %}
+                    {% else %}
+                    <strong>{{conversation.user1|title}}</strong> 
+                    {% endif %}
+            
+                </a>
+    
+                <button type="submit" class="btn badge bg-danger text-light">Delete</button>
+            </div>
+
+        {% endfor %}
+    </div>
+
+{% endblock %}

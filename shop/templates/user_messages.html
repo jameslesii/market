@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %} 
+    
+    <div class="container" style="padding-top: 20px;">
+        <div class="btn-group btn-group-sm" style="margin: 10px 10px;">
+            <a href="{%url 'view_conversations' %}" class="btn" style="background-color: navy;color: white;">Chats</a>
+            <a href="{%url 'user_messages' %}" class="btn btn-primary">Received</a>
+            <a href="{%url 'sent_messages' %}" class="btn btn-success">Sent</a>
+            <a href="{%url 'unread_messages' %}" class="btn btn-secondary">Unread</a>
+            <a href="{%url 'customers' %}" class="btn btn-warning">Community</a>
+        </div>
+        {% for message in messages %}
+            <div class="list-group-item-action" style="margin-bottom: 10px;padding: 10px;border-radius: 10px;border: 1px solid grey;">
+                {% if message.status == False %}
+                <span class="badge bg-warning text-success rounded-pill">Unread</span>
+                {% endif %}
+                <p><strong>From: </strong>{{message.sender|title}} </p>
+                <p><strong>Message: </strong>{{message.content|truncatewords:5}} </p>
+                <p>{{message.Timesent|timesince}} ago</p>
+                <a href="{% url 'openmsg' message.id %}" class="btn badge text-light rounded-pill" style="background-color: navy;">Open</a>
+                <a href="{% url 'messages' message.id %}" class="btn badge text-light rounded-pill bg-success">view</a>
+                <a href="" class="btn badge text-light rounded-pill bg-danger">Delete</a>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

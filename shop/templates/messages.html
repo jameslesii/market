@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %} 
+    
+    <div class="container" style="padding-top: 10px;">
+        {% for message in messages %}
+            <div class="list-group-item-action" style="margin-bottom: 10px;padding: 10px;border-radius: 10px;border: 1px solid grey;">
+                <p><strong>From: </strong>{{message.sender|title}} </p>
+                <p><strong>Sent: </strong>{{message.Timesent}} </p>
+                <p><strong>Message: </strong>{{message.content}} </p>
+                <p><strong>{{message.Timesent|timesince}}</strong> ago</p>
+                <a href="{% url 'openmsg' message.id %}" class="btn btn-sm text-light rounded-pill bg-primary">Reply</a>
+                <a href="{% url 'user_messages' %}" class="btn btn-sm text-light rounded-pill bg-warning">Cancel</a>
+                <a href="" class="btn btn-sm text-light rounded-pill bg-danger">Delete</a>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

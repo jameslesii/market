@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        {% for group in categories %}
+            <a href="{% url 'show_category' group.id %}" class="list-group-item list-group-item-action">{{group.ProductCategory}}</a>
+        {% endfor %}
+    </div>
+{% endblock %}
