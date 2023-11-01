@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %} 
+    
+    <div class="container" style="padding-top: 20px;">
+        <div class="btn-group btn-group-sm" style="margin: 10px 10px;">
+            <a href="{%url 'view_conversations' %}" class="btn btn-primary">Chats</a>
+            <a href="{%url 'user_messages' %}" class="btn btn-primary">Received</a>
+            <a href="{%url 'sent_messages' %}" class="btn btn-success">Sent</a>
+            <a href="{%url 'unread_messages' %}" class="btn btn-secondary">Unread</a>
+          </div>
+        {% for message in messages %}
+            
+                {% if message.sender == user %}
+                    <div class="d-flex flex-row-reverse">
+                        <div class="alert alert-info">
+                            <p><strong>Message: </strong>{{message.content}} </p>
+                            <small><p>{{message.Timesent|timesince}} ago</p></small>
+                        </div>
+                    </div>
+                {% elif message.sender != user %}
+                    <div class="d-flex flex-row">
+                        <div class="alert alert-success">
+                            <p><strong>Message: </strong>{{message.content}} </p>
+                            <small><p>{{message.Timesent|timesince}} ago</p></small>
+                        </div>
+                    </div>
+                {% endif %}
+           
+        {% endfor %}
+        <div class="input-group mb-3" style="max-width: 45opx;margin: 20px auto;">
+            <input type="text" class="form-control" placeholder="Send message">
+            <button class="btn btn-success" type="submit">Send</button>
+          </div>
+    </div>
+
+{% endblock %}

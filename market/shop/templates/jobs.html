@@ -1,0 +1,32 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %} 
+    <div class="container" style="display: flex;flex-direction: row;flex-wrap: wrap;">
+        {% for job in jobs %}
+            <div class="card" style="min-width: 320px;margin: 10px;">
+                <div class="card-header">
+                    <Small>
+                        <strong>Posted By: {{job.recruiter}}</strong>
+                        <div>
+                            <small class="text-success">{{job.DatePosted|timesince}}</small>  
+                        </div>
+                        <a type="button" href="{%url 'usersjobpost' job.recruiter.id%}" class="btn badge btn-info">View User Jobs</a>
+                    </Small>
+                </div>
+                
+                <div class="card-body">
+                    {{job.jobDescription}}
+                </div>
+                <div style="padding: 5px 15px;">
+                    <small class="text-success">{{job.JobLocation}}</small>
+                    <br>
+                    <small style="color: navy;">{{job.DatePosted}}</small>
+                    <br>
+                    <a href="{% url 'send_message' job.recruiter.id %}" class="btn badge text-light rounded-pill" style="background-color: navy;">Reply</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

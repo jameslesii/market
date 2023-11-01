@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %} 
+    
+    <div class="container">
+        {% for group in categories %}
+            <a href="{% url 'show_category' group.id %}" class="list-group-item list-group-item-action">{{group.ProductCategory}}</a>
+        
+            <div style="display: flex;flex-direction: row;flex-wrap: wrap;">
+                {% for product in products %}
+                    {% if group == product.ProductCategory %}
+                    <div class="card" style="max-width:360px;border: none; margin-top: 15px;">
+                        <a  href="{%url 'user_product' product.Owner.id %}" class="btn card-header" style="max-width: 320px;">@{{product.Owner|title}}</a>
+
+                        {% if product.ProductImage %}
+                            <img class="card-img-top" src="{{product.ProductImage.url}}" alt="{{product.ProductImage.url}}" style="margin: 10px; max-width: 320px;">
+                        {% else %}
+                            <img class="card-img-top" src="{%static 'icon/james.jpg' %}" alt="" style="max-width: 320px;">
+                        {% endif %}
+                        
+                        <div class="card-body">
+                            <h4 class="card-title" style="color: navy;">{{product.ProductName|title}}</h4>
+                            <p class="card-text" style="color: darkgreen;">Price: {{ product.ProductPrice }}&nbsp;Ksh</p>
+                            <p class="card-text">Total Number: {{ product.ProductQuantity }}</p>
+
+                            <a href="{% url 'show_product' product.id %}" class="btn btn-primary" style="margin-top: 5px;">
+                                View👁️
+                            </a>
+                            
+                            <a href="{% url 'send_message' product.Owner.id %}" class="btn " style="margin-top: 5px; background-color: darkmagenta;color: white;">Message 📩</a>
+                            
+                            <a href="#" class="btn btn-success" style="margin-top: 5px;">Order 🚚</a>
+                            <p></p>
+                            <div class="card" style="max-width: 320px;">
+                                
+                                <a class="btn card-header" data-bs-toggle="collapse" href="#{{product.ProductName}}">
+                                    Product Description
+                                </a>
+                                
+                                <div id="{{product.ProductName}}" class="collapse show" data-bs-parent="#accordion">
+                                <div class="card-body">
+                                    {{ product.ProductDescription }}
+                                </div>
+                                </div>
+                            </div>
+                            {% if product.Owner == request.user %}
+                                <a href="{% url 'deleteproduct' product.id%}" class="btn badge rounded-pill bg-danger">Delete This Product</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

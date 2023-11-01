@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %} 
+
+<div class="container pt-5" style="display: flex;flex-direction: column;flex-wrap: nowrap;place-items: center;">
+    {% if form %}
+      <form  method=POST class="col-sm-6"  style="border: 1px solid grey;border-radius: 10px; padding: 3px 10px;box-shadow: 0px 0px 30px rgba(0, 0, 128, 0.473)">
+          <div class="card-header">
+            <h4>Job Details Form</h4>
+          </div>
+          <p></p>
+          {% csrf_token %}
+
+          
+          <div class="input-group mb-3 input-group-sm">
+            <span class="input-group-text">Enter Job Name: &nbsp;&nbsp;&nbsp;</span>
+            {{form.job}}
+          </div>
+         
+          <div class="input-group mb-3 input-group-sm">
+            <span class="input-group-text">Select Job Location: &nbsp;&nbsp;&nbsp;</span>
+            {{form.JobLocation}}
+          </div>
+         
+          <div class="input-group mb-3 input-group-sm">
+            <span class="input-group-text">Enter Job Description: &nbsp;&nbsp;&nbsp;</span>
+            {{form.jobDescription}}
+          </div>
+         
+          
+          
+          
+          
+          <div class="btn-group">
+            <a type="button" href="{%url 'home'%}" class="btn btn-primary">Home</a>
+            <input type="submit" class="btn btn-success" value="Submit">
+            <a type="button" href="{%url 'userjobs' user.id%}" class="btn btn-warning">My Posted Jobs</a>
+          </div>
+          <p></p>
+          <div class="card-footer"></div>
+      </form>
+    {% endif %}
+</div>
+{% endblock %}

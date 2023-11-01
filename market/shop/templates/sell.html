@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %} 
+<div class="container pt-5" style="display: flex;flex-direction: column;flex-wrap: nowrap;place-items: center;">
+  {% if form %}
+    <form  method=POST class="col-sm-6" enctype="multipart/form-data" style="border: 1px solid grey;border-radius: 10px; padding: 3px 10px;box-shadow: 0px 0px 30px rgba(0, 0, 128, 0.473)">
+        <div class="card-header">
+          <h4>Product Details Form</h4>
+        </div>
+        <p></p>
+        {% csrf_token %}
+        <div class="input-group mb-3 input-group-sm">
+          <span class="input-group-text">Select Item category:</span>
+          {{ form.ProductCategory }}
+        </div>
+        
+        <div class="input-group mb-3 input-group-sm">
+          <span class="input-group-text">Enter Item Name: &nbsp;&nbsp;&nbsp;</span>
+          {{form.ProductName}}
+        </div>
+       
+        <div class="input-group mb-3 input-group-sm">
+          <span class="input-group-text">Select Item Image: &nbsp;&nbsp;</span>
+          {{form.ProductImage}}
+        </div>
+        
+        <div class="input-group mb-3 input-group-sm">
+            <span class="input-group-text">Enter Item Price: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            {{form.ProductPrice}}
+        </div>
+        
+        <div class="input-group mb-3 input-group-sm">
+          <span class="input-group-text">Enter Item Quantity:</span>
+          {{form.ProductQuantity}}
+        </div>
+        
+        
+        <div class="input-group mb-3 input-group-sm">
+          <span class="input-group-text">Enter Item Location:</span>
+          {{form.ProductLocation}}
+        </div>
+        <div class="input-group mb-3 input-group-sm">
+          <span class="input-group-text">Enter Item Description:</span>
+          {{form.ProductDescription}}
+        </div>
+        <br>
+        
+        
+        
+        
+        <div class="btn-group">
+          <a type="button" href="{%url 'home'%}" class="btn btn-primary">Home</a>
+          <input type="submit" class="btn btn-success" value="Submit">
+          <a type="button" href="{%url 'login'%}" class="btn btn-warning">My Products</a>
+        </div>
+        <p></p>
+        <div class="card-footer"></div>
+    </form>
+  {% endif %}
+</div>
+    
+{% endblock %}
